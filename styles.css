@@ -1,0 +1,79 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-grow: 1;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+.player {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    z-index: 1;
+}
+
+.enemy {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    position: absolute;
+    z-index: 1;
+}
+
+.gameArea {
+    background-color: black;
+    display: flex;
+    flex-grow: 1;
+}
+
+.bullet {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    position: absolute;
+}
+
+.enemyBullet {
+    width: 10px;
+    height: 10px;
+    background-color: violet;
+    position: absolute;
+}
+
+.score {
+    position: absolute;
+    top: 5vh;
+    left: 5vh;
+    font-size: 5vh;
+}
+
+.gameOver {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: none;
+}
+
+.gameOver.show {
+    display: block;
+}
+
+.gameOver > .gameOverText {
+    font-size: 5vh;
+    padding-bottom: 10vh;
+}
+
+.gameOver > .playAgainText {
+    padding-bottom: 2vh;
+}
+
+.selectedOption {
+    text-decoration: underline;
+}
