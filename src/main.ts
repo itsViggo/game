@@ -1,7 +1,7 @@
-import Entity from "./Entity";
-import createEnemy from "./enemy";
-import { onEnter, setSelectedOption } from "./gameOver";
-import createPlayer from "./player";
+import Entity from "./entities/types/Entity";
+import createEnemy from "./entities/enemy";
+import { onEnter, setSelectedOption } from "./ui/gameOver";
+import createPlayer from "./entities/player";
 
 
 createPlayer();

@@ -4,7 +4,8 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "build": "bun build --watch main.ts --outdir ./dist"
+    "build": "bun build src/main.ts --outdir ./dist",
+    "watch": "bun build --watch src/main.ts --outdir ./dist"
   },
   "author": "",
   "license": "ISC",

@@ -1,4 +1,4 @@
-import Entity from "./Entity";
+import Entity from "./types/Entity";
 import createBullet from "./enemyBullet";
 
 const fireRate = 0.01;

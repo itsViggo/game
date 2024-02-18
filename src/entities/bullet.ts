@@ -1,23 +1,25 @@
-import Entity from "./Entity";
-import { Position } from "./Position";
-import { showGameOver } from "./gameOver";
+import Entity from "./types/Entity";
+import { Position } from "./types/Position";
+import createEnemy from "./enemy";
+import { getScore, setScore } from "../ui/score";
 
-const bulletSpeed = -10;
+const bulletSpeed = 10;
 
 export default function createBullet(position: Position) {
     const bullet = new Entity({
         element: document.createElement('div'), id: 'Bullet', position, onUpdate: () => {
             bullet.position.y -= bulletSpeed;
-            if (bullet.position.y > document.body.clientHeight) {
+            if (bullet.position.y < 0) {
                 bullet.destroy();
             }
         }, onCollisionWith: {
-            'Player': (entity, self) => { 
+            'Enemy': (entity, self) => { 
                 entity.destroy();
                 self.destroy();
-                showGameOver();
+                setScore(getScore() + 1);
+                createEnemy();
             }
         }
     });
-    bullet.element.classList.add('enemyBullet');
+    bullet.element.classList.add('bullet');
 }

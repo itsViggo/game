@@ -1,4 +1,4 @@
-// Entity.ts
+// src/entities/types/Entity.ts
 class Entity {
   element;
   position;
@@ -67,7 +67,7 @@ class Entity {
   }
 }
 
-// gameOver.ts
+// src/ui/gameOver.ts
 function showGameOver() {
   visible = true;
   document.getElementById("gameOver").classList.add("show");
@@ -96,7 +96,7 @@ function onEnter() {
 var selectedOption = "Yes";
 var visible = false;
 
-// enemyBullet.ts
+// src/entities/enemyBullet.ts
 var bulletSpeed = -10;
 function createBullet(position) {
   const bullet = new Entity({
@@ -120,7 +120,7 @@ function createBullet(position) {
   bullet.element.classList.add("enemyBullet");
 }
 
-// enemy.ts
+// src/entities/enemy.ts
 var fireRate = 0.01;
 var framesToNextFire = 0;
 function createEnemy() {
@@ -140,7 +140,7 @@ function createEnemy() {
   enemy.element.classList.add("enemy");
 }
 
-// score.ts
+// src/ui/score.ts
 function getScore() {
   return _score;
 }
@@ -150,7 +150,7 @@ function setScore(score) {
 }
 var _score = 0;
 
-// bullet.ts
+// src/entities/bullet.ts
 var bulletSpeed2 = 10;
 function createBullet2(position) {
   const bullet = new Entity({
@@ -175,7 +175,7 @@ function createBullet2(position) {
   bullet.element.classList.add("bullet");
 }
 
-// player.ts
+// src/entities/player.ts
 var playerSpeed = 10;
 var fireRate2 = 0.05;
 var framesToNextFire2 = 0;
@@ -222,7 +222,7 @@ function createPlayer() {
   player.element.classList.add("player");
 }
 
-// main.ts
+// src/main.ts
 var gameLoop = function() {
   for (const entityId in Entity.entities) {
     for (const entity of Entity.entities[entityId]) {
