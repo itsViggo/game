@@ -6,7 +6,6 @@ import createPlayer from "./entities/player";
 
 createPlayer();
 createEnemy();
-setSelectedOption('Yes');
 
 const pressed = {} as Record<string, boolean>;
 

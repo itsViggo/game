@@ -1,6 +1,6 @@
 import Entity from "./types/Entity";
 import { Position } from "./types/Position";
-import { showGameOver } from "../ui/gameOver";
+import { setSelectedOption, showGameOver } from "../ui/gameOver";
 
 const bulletSpeed = -10;
 
@@ -16,6 +16,7 @@ export default function createBullet(position: Position) {
                 entity.destroy();
                 self.destroy();
                 showGameOver();
+                setSelectedOption('Yes');
             }
         }
     });
