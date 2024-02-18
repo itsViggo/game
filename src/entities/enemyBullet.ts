@@ -6,7 +6,7 @@ const bulletSpeed = -10;
 
 export default function createBullet(position: Position) {
     const bullet = new Entity({
-        element: document.createElement('div'), id: 'Bullet', position, onUpdate: () => {
+        element: document.createElement('div'), id: 'EnemyBullet', position, onUpdate: () => {
             bullet.position.y -= bulletSpeed;
             if (bullet.position.y > document.body.clientHeight) {
                 bullet.destroy();

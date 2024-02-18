@@ -1,3 +1,6 @@
+import createPlayer from "../entities/player";
+import { setScore } from "./score";
+
 let selectedOption = 'Yes';
 let visible = false;
 
@@ -22,7 +25,9 @@ export function setSelectedOption(newOption: 'Yes' | 'No') {
 export function onEnter() {
     if (visible) {
         if (selectedOption === 'Yes') {
-            location.reload();
+            document.getElementById('gameOver').classList.remove('show');
+            setScore(0);
+            createPlayer();
         } else {
             window.close();
         }

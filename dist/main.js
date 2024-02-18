@@ -67,79 +67,6 @@ class Entity {
   }
 }
 
-// src/ui/gameOver.ts
-function showGameOver() {
-  visible = true;
-  document.getElementById("gameOver").classList.add("show");
-}
-function setSelectedOption(newOption) {
-  if (visible) {
-    selectedOption = newOption;
-    if (newOption === "Yes") {
-      document.getElementById("yesText").classList.add("selectedOption");
-      document.getElementById("noText").classList.remove("selectedOption");
-    } else {
-      document.getElementById("noText").classList.add("selectedOption");
-      document.getElementById("yesText").classList.remove("selectedOption");
-    }
-  }
-}
-function onEnter() {
-  if (visible) {
-    if (selectedOption === "Yes") {
-      location.reload();
-    } else {
-      window.close();
-    }
-  }
-}
-var selectedOption = "Yes";
-var visible = false;
-
-// src/entities/enemyBullet.ts
-var bulletSpeed = -10;
-function createBullet(position) {
-  const bullet = new Entity({
-    element: document.createElement("div"),
-    id: "Bullet",
-    position,
-    onUpdate: () => {
-      bullet.position.y -= bulletSpeed;
-      if (bullet.position.y > document.body.clientHeight) {
-        bullet.destroy();
-      }
-    },
-    onCollisionWith: {
-      Player: (entity, self) => {
-        entity.destroy();
-        self.destroy();
-        showGameOver();
-      }
-    }
-  });
-  bullet.element.classList.add("enemyBullet");
-}
-
-// src/entities/enemy.ts
-var fireRate = 0.01;
-var framesToNextFire = 0;
-function createEnemy() {
-  const newEnemyX = Math.random() * document.body.clientWidth - 100;
-  const enemy = new Entity({
-    element: document.createElement("div"),
-    position: { x: newEnemyX < 0 ? 0 : newEnemyX, y: document.body.clientHeight * 0.15 },
-    id: "Enemy",
-    onUpdate: () => {
-      framesToNextFire--;
-      if (framesToNextFire <= 0) {
-        createBullet({ x: enemy.position.x + 50, y: enemy.position.y });
-        framesToNextFire = 1 / fireRate;
-      }
-    }
-  });
-  enemy.element.classList.add("enemy");
-}
-
 // src/ui/score.ts
 function getScore() {
   return _score;
@@ -151,14 +78,14 @@ function setScore(score) {
 var _score = 0;
 
 // src/entities/bullet.ts
-var bulletSpeed2 = 10;
-function createBullet2(position) {
+var bulletSpeed = 10;
+function createBullet(position) {
   const bullet = new Entity({
     element: document.createElement("div"),
     id: "Bullet",
     position,
     onUpdate: () => {
-      bullet.position.y -= bulletSpeed2;
+      bullet.position.y -= bulletSpeed;
       if (bullet.position.y < 0) {
         bullet.destroy();
       }
@@ -177,8 +104,8 @@ function createBullet2(position) {
 
 // src/entities/player.ts
 var playerSpeed = 10;
-var fireRate2 = 0.05;
-var framesToNextFire2 = 0;
+var fireRate = 0.05;
+var framesToNextFire = 0;
 function createPlayer() {
   const player = new Entity({
     element: document.createElement("div"),
@@ -188,7 +115,7 @@ function createPlayer() {
       y: document.body.clientHeight - 150
     },
     onUpdate: (pressed) => {
-      framesToNextFire2--;
+      framesToNextFire--;
       if (pressed.ArrowLeft) {
         player.position.x -= playerSpeed;
         if (player.position.x < 0) {
@@ -213,13 +140,89 @@ function createPlayer() {
           player.position.y = document.body.clientHeight - 100;
         }
       }
-      if (pressed.Space && framesToNextFire2 <= 0) {
-        framesToNextFire2 = 1 / fireRate2;
-        createBullet2({ x: player.position.x + 50, y: player.position.y });
+      if (pressed.Space && framesToNextFire <= 0) {
+        framesToNextFire = 1 / fireRate;
+        createBullet({ x: player.position.x + 50, y: player.position.y });
       }
     }
   });
   player.element.classList.add("player");
+}
+
+// src/ui/gameOver.ts
+function showGameOver() {
+  visible = true;
+  document.getElementById("gameOver").classList.add("show");
+}
+function setSelectedOption(newOption) {
+  if (visible) {
+    selectedOption = newOption;
+    if (newOption === "Yes") {
+      document.getElementById("yesText").classList.add("selectedOption");
+      document.getElementById("noText").classList.remove("selectedOption");
+    } else {
+      document.getElementById("noText").classList.add("selectedOption");
+      document.getElementById("yesText").classList.remove("selectedOption");
+    }
+  }
+}
+function onEnter() {
+  if (visible) {
+    if (selectedOption === "Yes") {
+      document.getElementById("gameOver").classList.remove("show");
+      setScore(0);
+      createPlayer();
+    } else {
+      window.close();
+    }
+  }
+}
+var selectedOption = "Yes";
+var visible = false;
+
+// src/entities/enemyBullet.ts
+var bulletSpeed2 = -10;
+function createBullet2(position) {
+  const bullet2 = new Entity({
+    element: document.createElement("div"),
+    id: "EnemyBullet",
+    position,
+    onUpdate: () => {
+      bullet2.position.y -= bulletSpeed2;
+      if (bullet2.position.y > document.body.clientHeight) {
+        bullet2.destroy();
+      }
+    },
+    onCollisionWith: {
+      Player: (entity, self) => {
+        entity.destroy();
+        self.destroy();
+        showGameOver();
+        setSelectedOption("Yes");
+      }
+    }
+  });
+  bullet2.element.classList.add("enemyBullet");
+}
+
+// src/entities/enemy.ts
+var fireRate2 = 0.01;
+var framesToNextFire2 = 0;
+function createEnemy() {
+  const newEnemyX = Math.random() * document.body.clientWidth - 100;
+  const enemy2 = new Entity({
+    element: document.createElement("div"),
+    position: { x: newEnemyX < 0 ? 0 : newEnemyX, y: document.body.clientHeight * 0.15 },
+    id: "Enemy",
+    onUpdate: () => {
+      framesToNextFire2--;
+      if (framesToNextFire2 <= 0) {
+        createBullet2({ x: enemy2.position.x + 50, y: enemy2.position.y });
+        framesToNextFire2 = 1 / fireRate2;
+      }
+    }
+  });
+  enemy2.element.classList.add("enemy");
 }
 
 // src/main.ts
@@ -238,7 +241,6 @@ var gameLoop = function() {
 };
 createPlayer();
 createEnemy();
-setSelectedOption("Yes");
 var pressed = {};
 document.addEventListener("keydown", (e) => {
   pressed[e.code] = true;
